@@ -18,7 +18,12 @@ public class ChangeRequest
     private readonly bool IsForced = false;
 
     /// <summary>
-    /// The accepted status of the Change.
+    /// The unique identifier number of the ChangeRequest.
+    /// </summary>
+    private readonly int RequestId;
+
+    /// <summary>
+    /// The accepted status of the ChangeRequest.
     /// </summary>
     public bool IsAccepted = false;
 
@@ -40,11 +45,16 @@ public class ChangeRequest
     /// <summary>
     /// Creates a new ChangeRequest.
     /// </summary>
-    public ChangeRequest(Guid requester, IEnumerable<Change> changes, string notes)
+    /// <param name="requester"></param>
+    /// <param name="requestId"></param>
+    /// <param name="changes"></param>
+    /// <param name="notes"></param>
+    /// <exception cref="ArgumentException"></exception>
+    public ChangeRequest(Guid requester, int requestId, IEnumerable<Change> changes, string notes)
     {
         if (false)  // if requester is in forceable list
         {
-            IsForced = true;
+            // IsForced = true;
         }
         if (IsForced)
         {
@@ -54,6 +64,7 @@ public class ChangeRequest
         {
             throw new ArgumentException("Cannot create a ChangeRequest without at least one Change.", nameof(changes));
         }
+        RequestId = requestId;
         Status = ChangeStatus.Submitted;
         RequesterId = requester;
         Changes = changes;

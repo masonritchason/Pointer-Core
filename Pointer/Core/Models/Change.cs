@@ -11,7 +11,12 @@ public class Change
     /// <summary>
     /// Allows the Change to be created in "Forced" mode, which will automatically approve the Change.
     /// </summary>
-    private bool IsForced = false;
+    private readonly bool IsForced = false;
+
+    /// <summary>
+    /// The unique identifier number of the Change.
+    /// </summary>
+    private readonly bool ChangeId;
 
     /// <summary>
     /// The accepted status of the Change.
@@ -51,13 +56,14 @@ public class Change
     /// <summary>
     /// Creates a new Change.
     /// </summary>
+    /// <param name="changeId"></param>
     /// <param name="type"></param>
     /// <param name="target"></param>
     /// <param name="targetSections"></param>
-    /// <param name="description">; 3-75 characters.</param>
+    /// <param name="description"></param>
     /// <param name="additionalNotes"></param>
     /// <exception cref="ArgumentException"></exception>
-    public Change(ChangeType type, ControlObject target, IEnumerable<ControlObjectSection> targetSections, string description, string? additionalNotes = null)
+    public Change(int changeId, ChangeType type, ControlObject target, IEnumerable<ControlObjectSection> targetSections, string description, string? additionalNotes = null)
     {
         if (!targetSections.Any())
         {
