@@ -9,6 +9,11 @@ namespace Pointer.Core.Models;
 public class ControlObject
 {
     /// <summary>
+    /// The directory path of the actual resource represented by the ControlObject.
+    /// </summary>
+    private string FilePath;
+
+    /// <summary>
     /// Indicates the most recent revision number of the ControlObject (the number of revisions made to the item).
     /// </summary>
     private int MajorRevision;
@@ -46,6 +51,7 @@ public class ControlObject
     /// <summary>
     /// Creates a new ControlObject.
     /// </summary>
+    /// <param name="filePath">The directory path of the actual resource represented by the ControlObject.</param>
     /// <param name="majorRevision">Indicates the most recent revision number of the ControlObject (the number of revisions made to the item).</param>
     /// <param name="type">The unique type of the ControlObject.</param>
     /// <param name="name">The plain-text name assigned to the ControlObject.</param>
@@ -54,7 +60,7 @@ public class ControlObject
     /// <param name="notes">Contains any special notes or remarks made on the ControlObject.</param>
     /// <param name="minorRevision">Indicates an optional minor revision number of the ControlObject (a revision made on the Major revision).</param>
     /// <exception cref="ArgumentException"></exception>
-    public ControlObject(int majorRevision, ControlObjectType type, string name, IEnumerable<ControlObjectTag> tags, IEnumerable<ControlObjectSection> sections, string? notes = null, int? minorRevision = null)
+    public ControlObject(string filePath, int majorRevision, ControlObjectType type, string name, IEnumerable<ControlObjectTag> tags, IEnumerable<ControlObjectSection> sections, string? notes = null, int? minorRevision = null)
     {
         if (majorRevision < 0)
         {
@@ -68,6 +74,7 @@ public class ControlObject
         {
             throw new ArgumentException("Cannot create a ControlObject without at least one defined Section.", nameof(sections));
         }
+        FilePath = filePath;
         MajorRevision = majorRevision;
         Type = type;
         Name = name;
