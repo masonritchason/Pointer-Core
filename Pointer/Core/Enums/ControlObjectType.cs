@@ -8,5 +8,6 @@ public enum ControlObjectType
     Document,
     SampleDocument,
     TemplateDocument,
-    GenericSample
+    GenericSample,
+    None
 }
